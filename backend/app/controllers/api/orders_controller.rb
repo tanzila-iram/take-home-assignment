@@ -1,7 +1,7 @@
 class Api::OrdersController < ApplicationController
   def index
     orders = current_user.orders.order(created_at: :desc)
-    render json: orders.map do |order|
+    render json: (orders.map do |order|
       {
         id: order.id,
         total_amount: order.total_amount,
@@ -16,7 +16,7 @@ class Api::OrdersController < ApplicationController
           }
         end
       }
-    end, status: :ok
+    end), status: :ok
   end
 
   def create
